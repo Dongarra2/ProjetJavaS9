@@ -1,10 +1,6 @@
 package entity;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import main.GamePanel;
 
 public class RedPotion extends Entity{
@@ -18,15 +14,9 @@ public class RedPotion extends Entity{
 		super(gp);
 		this.player=player;
 		
+		redPotion = setupImage("/UI/red_potion", gp.tileSize, 3*gp.tileSize/2);
+		redPotion2 = setupImage("/UI/red_potion_grayed", gp.tileSize, 3*gp.tileSize/2);
 		
-		try {
-			redPotion = ImageIO.read(getClass().getResourceAsStream("/UI/red_potion.png"));
-			redPotion2 = ImageIO.read(getClass().getResourceAsStream("/UI/red_potion_grayed.png"));
-		}
-		catch(IOException e) {
-			e.printStackTrace();
-		}
-
 	
 	}
 	

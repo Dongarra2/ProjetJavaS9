@@ -1,5 +1,7 @@
 package monsters;
 
+import java.util.Random;
+
 import entity.Entity;
 import main.GamePanel;
 
@@ -14,7 +16,9 @@ public class Monster_Skeleton extends Entity{
 		maxHP=10;
 		HP=maxHP;
 		minDamage=1;
-		maxDamage=4;	
+		maxDamage=4;
+		score = 10;
+		shield = 0;
 		
 		getImage();
 		
@@ -25,7 +29,32 @@ public class Monster_Skeleton extends Entity{
 		down1 = setupImage("/monsters/Skel1");
 	}
 	
-	
+	@Override
+	public String loot() {
+		String loot="none";
+		
+		Random random = new Random();
+		int randInt = random.nextInt(100);
+				
+		if(randInt<=5) {
+			loot = "redPot";
+		}
+		else if(randInt<=7) {
+			loot = "greenPot";
+		}
+		else if(randInt<=9) {
+			loot = "purplePot";
+		}
+		else if(randInt<=11) {
+			loot = "shield";
+		}
+		else {
+			loot="none";
+			
+		}	
+		
+		return loot;
+	}
 
 	
 	

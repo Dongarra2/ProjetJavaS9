@@ -31,8 +31,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int screenHeight = tileSize * maxScreenRow;
 	
 	//world settings
-	public final int maxWorldCol = 10;
-	public final int maxWorldRow = 10;
+	public final int maxWorldCol = 50;
+	public final int maxWorldRow = 50;
 	public final int worldWidth = tileSize*maxWorldCol;
 	public final int worldHeight = tileSize*maxWorldRow;
 	
@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 	public Player player = new Player(this,keyH);
 	MonsterSetter mSetter = new MonsterSetter(this);
-	public Entity monster[] = new Entity[20];
+	public Entity monster[] = new Entity[50];
 	ArrayList<Entity> entityList = new ArrayList<>();
 	
 	UI ui = new UI(this,player);
@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
 	RedPotion redPot = new RedPotion(this,player);
 	GreenPotion greenPot = new GreenPotion(this,player);
 	PurplePotion purplePot = new PurplePotion(this,player);
-	LootCrate lootCrate = new LootCrate(this,player);
+	LootCrate lootCrate = new LootCrate(this);
 	
 	
 	int FPS=60;
@@ -67,7 +67,11 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	
 	public void setupGame() {
-		mSetter.setMonster();
+		mSetter.loadMapMonsters("/maps/monsterMap00.txt");
+//		mSetter.setSkel(1, 5, 3);
+//		mSetter.setSkel(2, 8, 3);
+//		mSetter.setSkel(3, 4, 5);
+//		mSetter.setSkel(4, 4, 7);
 	}
 	
 	public void startGameThread() {
@@ -104,6 +108,12 @@ public class GamePanel extends JPanel implements Runnable{
 	public void update() {
 		
 		player.update();
+//		try {
+//			TestRequest.insertScore(player.name, player.score);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		
 	}
@@ -113,7 +123,7 @@ public class GamePanel extends JPanel implements Runnable{
 		Graphics2D g2 = (Graphics2D)g;
 		
 		tileM.draw(g2);
-		ui.draw(g2);
+
 		
 		entityList.add(player);
 		
@@ -133,7 +143,7 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		
 		
-		
+		ui.draw(g2);
 		g2.dispose();
 	}
 	

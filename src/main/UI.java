@@ -14,12 +14,12 @@ import entity.RedPotion;
 
 public class UI {
 	
-	BufferedImage UIBack;
+	BufferedImage UIBack,shield,shield_gray;
 	GamePanel gp;
 	Player player;
 	Font arial_20;
 	Font arial_25;
-	int potionTextPosY,potionPosY,equipmentTextPosY,itemHeight,itemWidth,potionAmountPosY;
+	int potionTextPosY,potionPosY,equipmentPosY,equipmentTextPosY,itemHeight,itemWidth,potionAmountPosY;
 	
 	
 	public UI(GamePanel gp,Player player) {
@@ -34,12 +34,15 @@ public class UI {
 		potionTextPosY = 57*gp.tileSize/8;
 		potionAmountPosY = 55*gp.tileSize/8;
 		equipmentTextPosY = 79*gp.tileSize/16;
+		equipmentPosY = 52*gp.tileSize/16;
 		
 
 
 		
 		try {
 			UIBack = ImageIO.read(getClass().getResourceAsStream("/UI/Inventory_back.png"));
+			shield = ImageIO.read(getClass().getResourceAsStream("/UI/shield.png"));
+			shield_gray = ImageIO.read(getClass().getResourceAsStream("/UI/shield_gray.png"));
 			
 		}catch(IOException e) {
 			e.printStackTrace();
@@ -141,7 +144,15 @@ public class UI {
 		
 		g2.drawString("Weapon", 7*gp.tileSize/16, equipmentTextPosY);
 		g2.drawString("Armor", 28*gp.tileSize/16, equipmentTextPosY);
-		g2.drawString("???", 47*gp.tileSize/16, equipmentTextPosY);
+		g2.drawString("Shield", 48*gp.tileSize/16, equipmentTextPosY);
+
+		
+		if(player.hasShield==true) {
+			g2.drawImage(shield,11*gp.tileSize/4,equipmentPosY,itemWidth,itemHeight,null);
+		}
+		else {
+			g2.drawImage(shield_gray,11*gp.tileSize/4,equipmentPosY,itemWidth,itemHeight,null);			
+		}
 		
 	}
 }

@@ -3,17 +3,14 @@ package entity;
 import java.util.Random;
 import main.GamePanel;
 
-public class LootCrate extends Object{
+public class LootCrate extends Entity{
+
 
 	
-	GamePanel gp;
-	Player player;
-	
-	
-	public LootCrate(GamePanel gp, Player player) {
+	public LootCrate(GamePanel gp) {
 		
-		this.gp=gp;
-		this.player=player;			
+		super(gp);
+		
 		
 	}
 	

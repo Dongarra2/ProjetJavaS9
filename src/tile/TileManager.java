@@ -25,7 +25,7 @@ public class TileManager {
 		mapTileNum = new int [gp.maxWorldCol][gp.maxWorldRow];
 		getTileImage();
 //		loadMap("/maps/world01.txt");
-		loadMap("/maps/map1.txt");
+		loadMap("/maps/map00.txt");
 	}
 	
 	public void setup(int index, String imageName, boolean collision) {
@@ -63,6 +63,8 @@ public class TileManager {
 					
 					int num = Integer.parseInt(numbers[col]);
 					
+
+					
 					mapTileNum[col][row] = num;
 					col++;			
 				}
@@ -85,13 +87,16 @@ public class TileManager {
 //		try {
 			
 			setup(0,"grass",false);
-			setup(1,"wall",true);
+			setup(1,"Stone_Wall",true);
 			setup(2,"water2",true);
 			setup(3,"earth",false);
 			setup(4,"Stone_Wall",true);
 			setup(5,"sand",false);
-			setup(6,"loot_Crate",false);
-			setup(7,"opened_Crate",false);
+			setup(6,"black",true);
+			setup(7,"wall",true);
+			setup(8,"loot_Crate",false);
+			setup(9,"opened_Crate",false);
+
 
 			
 			

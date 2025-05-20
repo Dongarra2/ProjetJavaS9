@@ -8,12 +8,14 @@ public class Player extends Entity{
 	
 	KeyHandler keyH;
 	
-	public final int screenX;
-	public final int screenY;
+	public int screenX;
+	public int screenY;
 	public boolean moving;
+	public boolean battled;
 	public int moveCounter;
-	public boolean hasGreenPot,hasPurplePot;
+	public boolean hasGreenPot,hasPurplePot,hasShield;
 	public int redPotCount,greenPotCount,purplePotCount,purplePotDuration,greenPotDuration,purplePotRemaining,greenPotRemaining;
+	public String playerName;
 
 
 
@@ -39,6 +41,7 @@ public class Player extends Entity{
 		speed= 4;
 		direction = "down";
 		moving = false;
+		battled = false;
 		moveCounter = 0;
 		
 		redPotCount = 0;
@@ -46,15 +49,19 @@ public class Player extends Entity{
 		purplePotCount = 0;
 		hasGreenPot = false;
 		hasPurplePot = false;
+		hasShield = false;
 		purplePotDuration = 2;
 		greenPotDuration = 2;
 		purplePotRemaining = 0;
 		greenPotRemaining = 0;
 		
+		name = "default";
+		
 		maxHP=50;
 		HP=maxHP;
 		minDamage=2;
 		maxDamage=5;
+		shield=0;
 	}
 	
 	public void getPlayerImage() {
@@ -91,7 +98,10 @@ public class Player extends Entity{
 	public void update() {
 		
 		
-		if (moving == false) {			
+		
+		
+		
+		if (moving == false) {
 			
 			if(keyH.upPressed == true || keyH.downPressed == true ||
 					keyH.leftPressed == true || keyH.rightPressed == true) {
@@ -113,12 +123,13 @@ public class Player extends Entity{
 				//check collision
 				collisionOn = false;
 				gp.cChecker.checkTile(this);
+				gp.cChecker.checkMonster(this);
 						
 			
 			}
 		}
 		
-		if (moving == true && collisionOn==false && moveCounter<gp.tileSize) {
+		else if (moving == true && collisionOn==false && moveCounter<gp.tileSize && battled==false) {
 			//if collision off player can move
 			
 			switch(direction) {
@@ -136,11 +147,18 @@ public class Player extends Entity{
 				spriteCounter = 0;
 			}
 		}
+		
+		else if (battled=true && moveCounter<gp.tileSize) {
+			moveCounter+=speed;
+		}
 			
 		else {
 			moving=false;
+			battled=false;
 			moveCounter=0;
 			}
+
+		
 		
 		
 		
@@ -164,6 +182,32 @@ public class Player extends Entity{
 			HP=maxHP;
 		}
 				
+	}
+
+
+
+	public void getLoot(String loot) {
+			
+			switch (loot){
+			
+				case "none":
+					break;
+				case "redPot":
+					RedPotion.getRedPotion(this);
+					break;
+				case "greenPot":
+					GreenPotion.getGreenPotion(this);
+					break;
+				case "purplePot":
+					PurplePotion.getPurplePotion(this);
+					break;
+				case "shield":
+					shield+=2;
+					hasShield=true;
+					break;
+				
+			}
+		
 	}
 	
 	

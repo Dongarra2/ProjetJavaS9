@@ -1,10 +1,6 @@
 package entity;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import main.GamePanel;
 
 public class GreenPotion extends Entity{
@@ -18,16 +14,9 @@ public class GreenPotion extends Entity{
 		super(gp);
 		this.player=player;
 		
-		
-		try {
-			greenPotion = ImageIO.read(getClass().getResourceAsStream("/UI/green_potion.png"));
-			greenPotion2 = ImageIO.read(getClass().getResourceAsStream("/UI/green_potion_grayed.png"));
-		}
-		catch(IOException e) {
-			e.printStackTrace();
-		}
-
-	
+		greenPotion = setupImage("/UI/green_potion", gp.tileSize, 3*gp.tileSize/2);
+		greenPotion2 = setupImage("/UI/green_potion_grayed", gp.tileSize, 3*gp.tileSize/2);
+			
 	}
 	
 	public static void getGreenPotion(Player player) {
@@ -36,7 +25,7 @@ public class GreenPotion extends Entity{
 	
 	public static void usePotion(Player player) {
 		
-		if(player.greenPotCount>0) {
+		if(player.greenPotCount>0 && player.minDamage<player.maxDamage) {
 		player.minDamage++;
 		player.greenPotCount--;
 		}
